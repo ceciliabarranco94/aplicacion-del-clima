@@ -254,6 +254,7 @@ weather-app/
 │   │   ├── openMeteoClient.ts        # Cliente de Open-Meteo
 │   │   └── __tests__/
 │   │       ├── openMeteoClient.test.ts
+│   │       ├── openMeteoClient.edgeCases.test.ts
 │   │       ├── weatherData.edgeCases.test.ts
 │   │       ├── apiResponse.edgeCases.test.ts
 │   │       └── concurrency.edgeCases.test.ts
