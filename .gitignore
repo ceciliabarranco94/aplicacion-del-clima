@@ -1,0 +1,74 @@
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+/.pnp
+.pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==========================================
+# Next.js & Build
+# ==========================================
+/.next/
+/out/
+/build
+.next
+dist/
+
+# ==========================================
+# Testing & Coverage
+# ==========================================
+/coverage
+*.lcov
+.nyc_output/
+vitest.results.json
+
+# ==========================================
+# Environment Variables
+# ==========================================
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# ==========================================
+# IDE & Editor
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+
+# ==========================================
+# OS & System Files
+# ==========================================
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# ==========================================
+# Logs
+# ==========================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# Optional: Archivos autogenerados
+# ==========================================
+next-env.d.ts
+
+# ==========================================
+# Misc
+# ==========================================
+*.bak
+*.tmp
+.cache/
