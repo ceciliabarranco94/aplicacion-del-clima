@@ -1,104 +1,85 @@
 'use client';
 
 import { useState } from 'react';
+import { Search, Loader2 } from 'lucide-react'; // Importamos iconos de lucide
 import { ErrorMessage } from './ErrorMessage';
 
-/**
- * Propiedades para el componente SearchBar.
- */
 interface SearchBarProps {
-  /** Función que recibe el nombre de la ciudad validado. */
   onSearch: (cityName: string) => void;
-  /** Estado de carga que bloquea el input y el botón. */
   isLoading: boolean;
-  /** Mensaje de error proveniente de la lógica de negocio o API. */
   error?: string;
-  /** Limpia el error actual al interactuar con el componente. */
   onClearError?: () => void;
 }
 
-/**
- * Componente de búsqueda con validación y estados visuales de carga/error.
- */
 export function SearchBar({ onSearch, isLoading, error, onClearError }: SearchBarProps) {
   const [input, setInput] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!input.trim()) {
-      return;
-    }
-
-    if (onClearError) {
-      onClearError();
-    }
-
+    if (!input.trim()) return;
+    if (onClearError) onClearError();
     onSearch(input.trim());
   };
 
   const isInputValid = input.trim().length >= 2;
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto mb-8">
-      <div className="flex gap-2">
-        <div className="flex-1">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-              if (onClearError) {
-                onClearError();
-              }
-            }}
-            placeholder="Ingresa el nombre de una ciudad..."
-            disabled={isLoading}
-            className={`
-              w-full px-4 py-3 rounded-lg border-2 transition-colors
-              focus:outline-none focus:ring-2 focus:ring-offset-1
-              disabled:opacity-60 disabled:cursor-not-allowed
-              ${
-                error
-                  ? 'border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
-              }
-            `}
-          />
-          {error && (
-            <div className="mt-2">
-              <ErrorMessage 
-                message={error}
-                type="error"
-                onDismiss={onClearError}
-              />
-            </div>
-          )}
+    <div className="w-full max-w-md">
+      <form 
+        onSubmit={handleSubmit} 
+        className={`
+          relative flex items-center p-1.5 rounded-full transition-all duration-300
+          bg-white shadow-lg border-2
+          ${error ? 'border-red-400' : 'border-transparent focus-within:border-peach-end/30'}
+        `}
+      >
+        {/* Icono de búsqueda a la izquierda */}
+        <div className="pl-4 text-peach-end opacity-70">
+          <Search size={20} />
         </div>
+
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+            if (onClearError) onClearError();
+          }}
+          placeholder="Busca una ciudad..."
+          disabled={isLoading}
+          className="flex-1 px-3 py-2 text-text-primary bg-transparent outline-none placeholder:text-text-secondary/50"
+        />
 
         <button
           type="submit"
           disabled={isLoading || !isInputValid}
           className={`
-            px-6 py-3 rounded-lg font-semibold transition-all
-            focus:outline-none focus:ring-2 focus:ring-offset-1
+            flex items-center justify-center px-6 py-2.5 rounded-full font-bold transition-all
             ${
               isLoading || !isInputValid
-                ? 'bg-gray-400 text-white cursor-not-allowed'
-                : 'bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-500'
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                : 'bg-peach-end text-white hover:bg-peach-end/90 hover:shadow-md active:scale-95'
             }
           `}
         >
           {isLoading ? (
-            <span className="flex items-center gap-2">
-              <span className="animate-spin">⏳</span>
-              Buscando...
-            </span>
+            <Loader2 className="animate-spin" size={20} />
           ) : (
             'Buscar'
           )}
         </button>
-      </div>
-    </form>
+      </form>
+
+      {/* Manejo de errores debajo del buscador */}
+      {error && (
+        <div className="absolute mt-2 translate-x-4">
+          <ErrorMessage 
+            message={error}
+            type="error"
+            onDismiss={onClearError}
+          />
+        </div>
+      )}
+    </div>
   );
 }
