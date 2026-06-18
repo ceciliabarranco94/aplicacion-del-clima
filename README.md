@@ -169,6 +169,7 @@ Velocidad del viento: 10 km/h
 | 95, 96, 99    | Tormenta eléctrica | ⛈️    |
 
 ## ⚡ Información de la API
+https://open-meteo.com/en/docs
 ### Información Técnica Importante
 - No requiere API Key: Open-Meteo es completamente gratuita
 - Privado y Seguro: No se rastrean datos de usuarios
